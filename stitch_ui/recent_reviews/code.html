@@ -1,0 +1,328 @@
+<!DOCTYPE html><html class="dark" lang="ko"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,300;0,400;0,500;1,300;1,400&amp;family=Manrope:wght@300;400;500;600&amp;family=Space+Grotesk:wght@300;400;500;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-highest": "#25252d",
+                        "on-primary": "#00515b",
+                        "error-dim": "#d7383b",
+                        "on-secondary-fixed": "#431585",
+                        "secondary-fixed": "#ddc8ff",
+                        "on-tertiary-fixed-variant": "#203184",
+                        "tertiary-dim": "#8998f0",
+                        "tertiary": "#a8b4ff",
+                        "surface-container-low": "#131319",
+                        "primary-dim": "#45d8ed",
+                        "on-secondary": "#330070",
+                        "tertiary-container": "#96a5ff",
+                        "surface": "#0e0e13",
+                        "surface-tint": "#58e7fb",
+                        "on-primary-fixed-variant": "#005b66",
+                        "surface-container": "#19191f",
+                        "surface-bright": "#2c2b33",
+                        "on-primary-container": "#00363d",
+                        "primary-fixed": "#58e7fb",
+                        "primary": "#58e7fb",
+                        "tertiary-fixed-dim": "#8e9df6",
+                        "on-secondary-fixed-variant": "#6139a3",
+                        "inverse-on-surface": "#55545b",
+                        "on-error-container": "#ffa8a3",
+                        "on-primary-fixed": "#003c44",
+                        "on-tertiary-fixed": "#000d52",
+                        "outline-variant": "#48474d",
+                        "secondary-dim": "#b189f8",
+                        "surface-container-lowest": "#000000",
+                        "primary-container": "#1cc2d6",
+                        "on-surface": "#f9f5fd",
+                        "inverse-surface": "#fcf8ff",
+                        "error": "#ff716c",
+                        "error-container": "#9f0519",
+                        "on-tertiary-container": "#0f2176",
+                        "on-background": "#f9f5fd",
+                        "surface-container-high": "#1f1f26",
+                        "tertiary-fixed": "#9eabff",
+                        "on-tertiary": "#1d2e81",
+                        "primary-fixed-dim": "#45d8ed",
+                        "inverse-primary": "#006975",
+                        "surface-dim": "#0e0e13",
+                        "surface-variant": "#25252d",
+                        "outline": "#76747b",
+                        "on-error": "#490006",
+                        "on-secondary-container": "#dcc7ff",
+                        "secondary-fixed-dim": "#d2b7ff",
+                        "background": "#0e0e13",
+                        "on-surface-variant": "#acaab1",
+                        "secondary": "#b78efe",
+                        "secondary-container": "#572e99"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Pretendard", "sans-serif"],
+                        "brand": ["Newsreader", "serif"],
+                        "body": ["Pretendard", "sans-serif"],
+                        "label": ["Space Grotesk", "sans-serif"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            background-color: #0e0e13;
+            color: #f9f5fd;
+            font-family: 'Pretendard', sans-serif;
+            overflow-x: hidden;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .bg-glow {
+            background: radial-gradient(circle at 50% 50%, rgba(88, 231, 251, 0.05) 0%, rgba(0, 0, 0, 0) 70%);
+        }
+        .glass-panel {
+            background: rgba(25, 25, 31, 0.4);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+        }
+        .font-emphasis {
+            font-family: 'Pretendard', sans-serif;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+        }
+        .font-emphasis-bold {
+            font-family: 'Pretendard', sans-serif;
+            font-weight: 700;
+            letter-spacing: 0.07em;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+<!-- Top Navigation Bar -->
+<header class="fixed top-0 w-full z-50 bg-[#0e0e13]/80 backdrop-blur-2xl border-b border-white/5 shadow-[0_8px_32px_0_rgba(0,0,0,0.3)]">
+<div class="flex items-center justify-between px-12 h-20 w-full">
+<div class="flex items-center gap-12">
+<a class="text-2xl font-light italic text-[#58e7fb] font-brand tracking-tight" href="#" style="">Vibe Review</a>
+<nav class="hidden md:flex items-center gap-8">
+<a class="text-slate-400 font-emphasis hover:text-[#b78efe] hover:scale-105 transition-all duration-300" href="#" style="">코드 분석</a>
+<a class="text-[#58e7fb] font-emphasis-bold after:content-[''] after:block after:h-px after:bg-[#58e7fb] after:w-full hover:text-[#b78efe] hover:scale-105 transition-all duration-300" href="#" style="">리뷰 기록</a>
+<a class="text-slate-400 font-emphasis hover:text-[#b78efe] hover:scale-105 transition-all duration-300" href="#" style="">가이드</a>
+</nav>
+</div>
+<div class="flex items-center gap-6">
+<button class="bg-[#58e7fb] text-[#00363d] px-6 py-2.5 rounded-full font-emphasis-bold active:scale-95 transition-all duration-200" style="">시작하기 →</button>
+</div>
+</div>
+</header>
+<main class="flex-grow pt-32 pb-20 px-8 relative overflow-hidden">
+<!-- Atmospheric Background Glow -->
+<div class="absolute -top-40 -right-40 w-[600px] h-[600px] bg-tertiary/5 blur-[120px] rounded-full"></div>
+<div class="absolute -bottom-40 -left-40 w-[600px] h-[600px] bg-primary/5 blur-[120px] rounded-full"></div>
+<div class="max-w-6xl mx-auto relative z-10">
+<!-- Header Section -->
+<header class="mb-16">
+<div class="flex items-center gap-3 mb-4">
+<span class="w-12 h-[1px] bg-primary/30"></span>
+<span class="font-label uppercase tracking-[0.3em] text-[10px] text-primary" style="">Archive</span>
+</div>
+<h1 class="font-brand italic font-light text-5xl text-on-surface mb-4 tracking-tight" style=""><h1 class="font-headline font-extrabold text-4xl md:text-5xl text-on-surface mb-4 leading-tight ko-emphasis cursor-text" spellcheck="false" data-stitch-added-classes="cursor-text" style="--tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / 0.5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; font-size: 3rem; letter-spacing: 0.05em; font-family: Pretendard, Manrope, sans-serif; line-height: 1; --tw-text-opacity: 1; color: rgb(249, 245, 253); font-style: normal; outline: none !important;">최근 리뷰 내역</h1></h1>
+<p class="text-on-surface-variant font-body text-lg max-w-xl leading-relaxed" style="">
+                    로컬 세션에 저장된 최근 코드 리뷰 기록입니다. 분석된 모든 파일의 데이터는 암호화되어 브라우저에 안전하게 보관됩니다.
+                </p>
+</header>
+<!-- Reviews Grid/List -->
+<div class="grid grid-cols-1 gap-6">
+<!-- Review Item 1 -->
+<div class="glass-panel rounded-lg p-6 hover:bg-surface-container transition-all group cursor-pointer relative overflow-hidden">
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
+<div class="flex items-start gap-5">
+<div class="w-12 h-12 rounded-full bg-surface-container-high flex items-center justify-center text-primary border border-white/5 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined" style="">description</span>
+</div>
+<div>
+<h3 class="font-body font-semibold text-lg text-white mb-1" style="">authentication.ts</h3>
+<p class="font-label text-[10px] uppercase tracking-widest text-slate-500" style="">Last scanned: 2 hours ago</p>
+</div>
+</div>
+<div class="flex items-center gap-8 md:gap-12">
+<!-- Issue Counters -->
+<div class="flex items-center gap-4">
+<div class="flex flex-col items-center">
+<span class="font-label text-[10px] text-slate-500 mb-1 tracking-tighter" style="">치명적</span>
+<span class="px-3 py-1 rounded-full bg-error/10 text-error text-xs font-bold border border-error/20" style="">2</span>
+</div>
+<div class="flex flex-col items-center">
+<span class="font-label text-[10px] text-slate-500 mb-1 tracking-tighter" style="">주의</span>
+<span class="px-3 py-1 rounded-full bg-amber-500/10 text-amber-400 text-xs font-bold border border-amber-500/20" style="">5</span>
+</div>
+<div class="flex flex-col items-center">
+<span class="font-label text-[10px] text-slate-500 mb-1 tracking-tighter" style="">정상</span>
+<span class="px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 text-xs font-bold border border-emerald-500/20" style="">14</span>
+</div>
+</div>
+<button class="text-slate-400 group-hover:text-primary transition-colors" style="">
+<span class="material-symbols-outlined" style="">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Review Item 2 -->
+<div class="glass-panel rounded-lg p-6 hover:bg-surface-container transition-all group cursor-pointer relative overflow-hidden">
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
+<div class="flex items-start gap-5">
+<div class="w-12 h-12 rounded-full bg-surface-container-high flex items-center justify-center text-secondary border border-white/5 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined" style="">data_object</span>
+</div>
+<div>
+<h3 class="font-body font-semibold text-lg text-white mb-1" style="">database-connector.py</h3>
+<p class="font-label text-[10px] uppercase tracking-widest text-slate-500" style="">Last scanned: 1 day ago</p>
+</div>
+</div>
+<div class="flex items-center gap-8 md:gap-12">
+<div class="flex items-center gap-4">
+<div class="flex flex-col items-center">
+<span class="font-label text-[10px] text-slate-500 mb-1 tracking-tighter" style="">치명적</span>
+<span class="px-3 py-1 rounded-full bg-error/10 text-error text-xs font-bold border border-error/20" style="">0</span>
+</div>
+<div class="flex flex-col items-center">
+<span class="font-label text-[10px] text-slate-500 mb-1 tracking-tighter" style="">주의</span>
+<span class="px-3 py-1 rounded-full bg-amber-500/10 text-amber-400 text-xs font-bold border border-amber-500/20" style="">1</span>
+</div>
+<div class="flex flex-col items-center">
+<span class="font-label text-[10px] text-slate-500 mb-1 tracking-tighter" style="">정상</span>
+<span class="px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 text-xs font-bold border border-emerald-500/20" style="">32</span>
+</div>
+</div>
+<button class="text-slate-400 group-hover:text-primary transition-colors" style="">
+<span class="material-symbols-outlined" style="">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Review Item 3 (High Issue) -->
+<div class="glass-panel rounded-lg p-6 hover:bg-surface-container transition-all group cursor-pointer relative overflow-hidden">
+<!-- Subtle Glow for High Priority -->
+<div class="absolute top-0 right-0 w-32 h-32 bg-error/5 blur-3xl rounded-full"></div>
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
+<div class="flex items-start gap-5">
+<div class="w-12 h-12 rounded-full bg-surface-container-high flex items-center justify-center text-error border border-white/5 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined" style="">warning</span>
+</div>
+<div>
+<h3 class="font-body font-semibold text-lg text-white mb-1" style="">payment-gateway.go</h3>
+<p class="font-label text-[10px] uppercase tracking-widest text-slate-500" style="">Last scanned: 3 days ago</p>
+</div>
+</div>
+<div class="flex items-center gap-8 md:gap-12">
+<div class="flex items-center gap-4">
+<div class="flex flex-col items-center">
+<span class="font-label text-[10px] text-slate-500 mb-1 tracking-tighter" style="">치명적</span>
+<span class="px-3 py-1 rounded-full bg-error/20 text-error text-xs font-extrabold border border-error/40 shadow-[0_0_15px_rgba(255,113,108,0.2)]" style="">8</span>
+</div>
+<div class="flex flex-col items-center">
+<span class="font-label text-[10px] text-slate-500 mb-1 tracking-tighter" style="">주의</span>
+<span class="px-3 py-1 rounded-full bg-amber-500/10 text-amber-400 text-xs font-bold border border-amber-500/20" style="">12</span>
+</div>
+<div class="flex flex-col items-center">
+<span class="font-label text-[10px] text-slate-500 mb-1 tracking-tighter" style="">정상</span>
+<span class="px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 text-xs font-bold border border-emerald-500/20" style="">5</span>
+</div>
+</div>
+<button class="text-slate-400 group-hover:text-primary transition-colors" style="">
+<span class="material-symbols-outlined" style="">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Review Item 4 -->
+<div class="glass-panel rounded-lg p-6 hover:bg-surface-container transition-all group cursor-pointer relative overflow-hidden opacity-80 hover:opacity-100">
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
+<div class="flex items-start gap-5">
+<div class="w-12 h-12 rounded-full bg-surface-container-high flex items-center justify-center text-slate-500 border border-white/5 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined" style="">folder_open</span>
+</div>
+<div>
+<h3 class="font-body font-semibold text-lg text-white mb-1" style="">utils/string-formatter.js</h3>
+<p class="font-label text-[10px] uppercase tracking-widest text-slate-500" style="">Last scanned: 1 week ago</p>
+</div>
+</div>
+<div class="flex items-center gap-8 md:gap-12">
+<div class="flex items-center gap-4">
+<div class="flex flex-col items-center">
+<span class="font-label text-[10px] text-slate-500 mb-1 tracking-tighter" style="">치명적</span>
+<span class="px-3 py-1 rounded-full bg-white/5 text-slate-500 text-xs font-bold" style="">0</span>
+</div>
+<div class="flex flex-col items-center">
+<span class="font-label text-[10px] text-slate-500 mb-1 tracking-tighter" style="">주의</span>
+<span class="px-3 py-1 rounded-full bg-white/5 text-slate-500 text-xs font-bold" style="">0</span>
+</div>
+<div class="flex flex-col items-center">
+<span class="font-label text-[10px] text-slate-500 mb-1 tracking-tighter" style="">정상</span>
+<span class="px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 text-xs font-bold border border-emerald-500/20" style="">8</span>
+</div>
+</div>
+<button class="text-slate-400 group-hover:text-primary transition-colors" style="">
+<span class="material-symbols-outlined" style="">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Stats/Insight Summary (Bento Style) -->
+<div class="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="md:col-span-2 glass-panel rounded-lg p-8 relative overflow-hidden">
+<div class="absolute -right-10 -bottom-10 w-40 h-40 bg-primary/5 blur-3xl"></div>
+<h4 class="font-label text-[11px] uppercase tracking-[0.2em] text-primary mb-6" style="">Review Statistics</h4>
+<div class="flex justify-between items-end">
+<div class="space-y-1">
+<span class="text-4xl font-brand italic font-light" style="">24</span>
+<p class="text-xs text-on-surface-variant font-label uppercase tracking-widest" style="">Total Files Analyzed</p>
+</div>
+<div class="flex gap-4">
+<div class="h-24 w-1.5 bg-error/20 rounded-full relative"><div class="absolute bottom-0 w-full h-1/4 bg-error rounded-full"></div></div>
+<div class="h-24 w-1.5 bg-amber-500/20 rounded-full relative"><div class="absolute bottom-0 w-full h-2/3 bg-amber-400 rounded-full"></div></div>
+<div class="h-24 w-1.5 bg-emerald-500/20 rounded-full relative"><div class="absolute bottom-0 w-full h-full bg-emerald-500 rounded-full"></div></div>
+<div class="h-24 w-1.5 bg-primary/20 rounded-full relative"><div class="absolute bottom-0 w-full h-1/2 bg-primary rounded-full"></div></div>
+</div>
+</div>
+</div>
+<div class="glass-panel rounded-lg p-8 flex flex-col justify-between border-primary/20">
+<div>
+<h4 class="font-label text-[11px] uppercase tracking-[0.2em] text-secondary mb-4" style="">Security Status</h4>
+<p class="text-sm text-on-surface-variant leading-relaxed" style="">최근 3개의 파일에서 치명적인 보안 취약점이 발견되었습니다. 즉각적인 조치가 필요합니다.</p>
+</div>
+<button class="mt-6 flex items-center gap-2 text-xs font-bold text-primary group" style="">
+                        보안 상세 보고서 
+                        <span class="material-symbols-outlined text-[16px] group-hover:translate-x-1 transition-transform" style="">trending_flat</span>
+</button>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="w-full py-12 px-12 border-t border-white/5 bg-[#0e0e13]">
+<div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+<div class="flex flex-col gap-2">
+<p class="font-body text-xs font-light text-slate-600" style="">© 2024 Vibe Review. 모든 코드에 가치를 더합니다.</p>
+</div>
+<div class="flex items-center gap-8">
+<a class="font-emphasis text-xs text-slate-600 hover:text-white transition-colors" href="#" style="">시스템 상태</a>
+<a class="font-emphasis text-xs text-slate-600 hover:text-white transition-colors" href="#" style="">릴리즈 노트</a>
+<a class="font-emphasis text-xs text-slate-600 hover:text-white transition-colors" href="#" style="">커뮤니티</a>
+</div>
+</div>
+</footer>
+</body></html>

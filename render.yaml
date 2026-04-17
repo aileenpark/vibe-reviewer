@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: vibe-reviewer
+    runtime: node
+    rootDir: server
+    buildCommand: npm install
+    startCommand: node index.js
+    envVars:
+      - key: GROQ_API_KEY
+        sync: false

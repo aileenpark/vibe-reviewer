@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html class="dark" lang="ko">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Vibe Review — 분석 결과</title>
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Manrope:wght@200;300;400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+  <link as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet"/>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "surface-dim": "#0e0e13",
+            "secondary-dim": "#b189f8",
+            "tertiary-container": "#96a5ff",
+            "primary-fixed": "#58e7fb",
+            "error-container": "#9f0519",
+            "inverse-on-surface": "#55545b",
+            "surface-container-low": "#131319",
+            "on-tertiary": "#1d2e81",
+            "on-surface": "#f9f5fd",
+            "surface-variant": "#25252d",
+            "inverse-surface": "#fcf8ff",
+            "on-primary-fixed": "#003c44",
+            "on-error": "#490006",
+            "on-surface-variant": "#acaab1",
+            "error": "#ff716c",
+            "tertiary-fixed": "#9eabff",
+            "secondary-fixed-dim": "#d2b7ff",
+            "surface-container-highest": "#25252d",
+            "surface-container-high": "#1f1f26",
+            "surface-container": "#19191f",
+            "inverse-primary": "#006975",
+            "tertiary": "#a8b4ff",
+            "background": "#0e0e13",
+            "secondary-container": "#572e99",
+            "on-tertiary-fixed": "#000d52",
+            "surface-bright": "#2c2b33",
+            "primary-fixed-dim": "#45d8ed",
+            "surface-container-lowest": "#09090f",
+            "on-tertiary-fixed-variant": "#203184",
+            "on-secondary-fixed-variant": "#6139a3",
+            "surface-tint": "#58e7fb",
+            "tertiary-dim": "#8998f0",
+            "secondary-fixed": "#ddc8ff",
+            "on-tertiary-container": "#0f2176",
+            "on-secondary": "#330070",
+            "on-primary-fixed-variant": "#005b66",
+            "outline-variant": "#48474d",
+            "on-secondary-container": "#dcc7ff",
+            "error-dim": "#d7383b",
+            "outline": "#76747b",
+            "on-primary": "#00515b",
+            "on-secondary-fixed": "#431585",
+            "primary-container": "#1cc2d6",
+            "on-error-container": "#ffa8a3",
+            "secondary": "#b78efe",
+            "on-background": "#f9f5fd",
+            "primary": "#58e7fb",
+            "tertiary-fixed-dim": "#8e9df6",
+            "primary-dim": "#45d8ed",
+            "surface": "#0e0e13",
+            "on-primary-container": "#00363d"
+          },
+          borderRadius: {
+            DEFAULT: "1rem",
+            lg: "2rem",
+            xl: "3rem",
+            full: "9999px"
+          },
+          fontFamily: {
+            headline: ["Pretendard", "Manrope", "sans-serif"],
+            body: ["Pretendard", "Manrope", "sans-serif"],
+            label: ["Space Grotesk", "Pretendard", "sans-serif"],
+            brand: ["Newsreader", "serif"]
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+    }
+    body {
+      background-color: #0e0e13;
+      color: #f9f5fd;
+      font-family: 'Pretendard', 'Manrope', sans-serif;
+      overflow-x: hidden;
+    }
+    .glass-panel {
+      background: rgba(25, 25, 31, 0.6);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255,255,255,0.05);
+    }
+    .code-snippet::-webkit-scrollbar { display: none; }
+    .ko-emphasis { font-weight: 700; letter-spacing: 0.05em; }
+
+    /* Drawer transition */
+    #detail-drawer {
+      transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    #detail-drawer.closed { transform: translateX(100%); }
+    #detail-drawer.open { transform: translateX(0); }
+
+    /* Overlay transition */
+    #drawer-overlay {
+      transition: opacity 0.35s ease;
+    }
+    #drawer-overlay.hidden-overlay { opacity: 0; pointer-events: none; }
+    #drawer-overlay.visible-overlay { opacity: 1; pointer-events: all; }
+
+    /* Card hover glow */
+    .issue-card:hover { box-shadow: 0 0 40px rgba(88, 231, 251, 0.04); }
+    .issue-card.critical:hover { box-shadow: 0 4px 40px rgba(255, 113, 108, 0.08); }
+    .issue-card.warning:hover { box-shadow: 0 4px 40px rgba(245, 158, 11, 0.08); }
+    .issue-card.info:hover { box-shadow: 0 4px 40px rgba(52, 211, 153, 0.08); }
+
+    /* Fade in cards */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .issue-card { animation: fadeInUp 0.4s ease forwards; opacity: 0; }
+    .issue-card:nth-child(1) { animation-delay: 0.1s; }
+    .issue-card:nth-child(2) { animation-delay: 0.2s; }
+    .issue-card:nth-child(3) { animation-delay: 0.3s; }
+    .issue-card:nth-child(4) { animation-delay: 0.4s; }
+
+    /* Drawer scroll */
+    #drawer-content::-webkit-scrollbar { width: 3px; }
+    #drawer-content::-webkit-scrollbar-track { background: transparent; }
+    #drawer-content::-webkit-scrollbar-thumb { background: rgba(88,231,251,0.2); border-radius: 2px; }
+
+    /* Sidebar scroll */
+    aside::-webkit-scrollbar { display: none; }
+
+    /* Dismissed card style */
+    .issue-card.dismissed {
+      opacity: 0.35;
+      filter: grayscale(0.6);
+    }
+    .issue-card.dismissed * { pointer-events: none; }
+  </style>
+</head>
+<body class="bg-surface-dim text-on-surface font-body selection:bg-primary/30 min-h-screen">
+
+  <!-- Atmospheric Background -->
+  <div class="fixed top-0 left-0 w-full h-full overflow-hidden pointer-events-none z-0">
+    <div class="absolute -top-[20%] -left-[10%] w-[60%] h-[60%] bg-primary/5 blur-[120px] rounded-full"></div>
+    <div class="absolute bottom-[10%] -right-[5%] w-[40%] h-[40%] bg-secondary/5 blur-[100px] rounded-full"></div>
+  </div>
+
+  <!-- TopAppBar -->
+  <header class="fixed top-0 w-full z-50 bg-[#0e0e13]/80 backdrop-blur-2xl border-b border-white/5 shadow-[0_8px_32px_0_rgba(0,0,0,0.3)]">
+    <div class="flex items-center justify-between px-8 md:px-12 h-20 w-full max-w-7xl mx-auto">
+      <div class="flex items-center gap-10">
+        <a class="text-2xl font-light italic text-primary font-brand tracking-tight" href="index.html">Vibe Review</a>
+        <nav class="hidden md:flex items-center gap-8">
+          <a class="text-primary font-emphasis-bold after:content-[''] after:block after:h-px after:bg-primary after:w-full" href="#">코드 분석</a>
+          <a class="text-slate-400 font-emphasis hover:text-secondary transition-all duration-300" href="history.html">리뷰 기록</a>
+          <a class="text-slate-400 font-emphasis hover:text-secondary transition-all duration-300" href="guide.html">가이드</a>
+        </nav>
+      </div>
+      <a href="index.html" class="bg-primary text-on-primary-container px-6 py-2.5 rounded-full font-emphasis-bold active:scale-95 transition-all duration-200 hover:brightness-110">
+        시작하기 →
+      </a>
+    </div>
+  </header>
+
+  <!-- Sidebar -->
+  <aside class="h-screen w-64 fixed left-0 top-0 bg-[#0e0e13] flex flex-col p-6 gap-8 z-40 hidden xl:flex border-r border-white/5 overflow-y-auto">
+    <div class="mt-20">
+      <!-- Summary badge -->
+      <div class="mb-8 px-4">
+        <div class="bg-surface-container rounded-2xl p-4 border border-outline-variant/10">
+          <p class="font-label text-[10px] tracking-widest text-slate-500 uppercase mb-3">분석 요약</p>
+          <div class="space-y-2">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <div class="w-2 h-2 rounded-full bg-error"></div>
+                <span class="text-xs text-slate-400">치명적</span>
+              </div>
+              <span class="text-xs font-bold text-error" id="summary-critical">1</span>
+            </div>
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <div class="w-2 h-2 rounded-full bg-amber-400"></div>
+                <span class="text-xs text-slate-400">주의</span>
+              </div>
+              <span class="text-xs font-bold text-amber-400" id="summary-warning">2</span>
+            </div>
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <div class="w-2 h-2 rounded-full bg-emerald-400"></div>
+                <span class="text-xs text-slate-400">참고</span>
+              </div>
+              <span class="text-xs font-bold text-emerald-400" id="summary-info">1</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <nav class="flex flex-col gap-2">
+        <button onclick="filterIssues('all')" data-filter="all" class="filter-btn active-filter bg-primary/10 text-primary rounded-full px-4 py-3 flex items-center gap-3 transition-all text-left">
+          <span class="material-symbols-outlined text-lg" style="font-variation-settings: 'FILL' 1;">analytics</span>
+          <span class="font-label uppercase tracking-widest text-[11px] ko-emphasis">전체 이슈</span>
+        </button>
+        <button onclick="filterIssues('critical')" data-filter="critical" class="filter-btn text-slate-500 px-4 py-3 flex items-center gap-3 hover:bg-white/5 hover:text-white transition-all group text-left rounded-full">
+          <span class="material-symbols-outlined text-lg text-error">priority_high</span>
+          <span class="font-label uppercase tracking-widest text-[11px] ko-emphasis">치명적</span>
+        </button>
+        <button onclick="filterIssues('warning')" data-filter="warning" class="filter-btn text-slate-500 px-4 py-3 flex items-center gap-3 hover:bg-white/5 hover:text-white transition-all group text-left rounded-full">
+          <span class="material-symbols-outlined text-lg text-amber-400">warning</span>
+          <span class="font-label uppercase tracking-widest text-[11px] ko-emphasis">주의</span>
+        </button>
+        <button onclick="filterIssues('info')" data-filter="info" class="filter-btn text-slate-500 px-4 py-3 flex items-center gap-3 hover:bg-white/5 hover:text-white transition-all group text-left rounded-full">
+          <span class="material-symbols-outlined text-lg text-emerald-400">check_circle</span>
+          <span class="font-label uppercase tracking-widest text-[11px] ko-emphasis">참고</span>
+        </button>
+      </nav>
+    </div>
+
+    <div class="mt-auto">
+      <a href="index.html" class="w-full bg-primary/5 border border-primary/20 text-primary py-4 rounded-xl font-label uppercase tracking-widest text-[11px] ko-emphasis hover:bg-primary/10 transition-colors flex items-center justify-center gap-2">
+        <span class="material-symbols-outlined text-sm">add</span>
+        새 프로젝트 시작
+      </a>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="pt-28 pb-20 px-6 md:px-12 xl:ml-64 relative z-10 transition-all duration-500">
+    <!-- Page Header -->
+    <header class="mb-10 max-w-4xl">
+      <div class="flex items-center gap-3 mb-3">
+        <span class="font-label text-[10px] tracking-[0.25em] text-on-surface-variant uppercase bg-white/5 px-3 py-1 rounded-full">분석 완료</span>
+        <span class="font-label text-[10px] tracking-[0.2em] text-slate-500 uppercase" id="analyzed-lang"></span>
+      </div>
+      <h1 class="font-headline font-extrabold text-3xl md:text-5xl text-on-surface mb-4 leading-tight ko-emphasis">
+        코드 분석 결과: <span class="text-primary" id="issue-count-headline">4개의 개선 사항</span>이 발견되었습니다
+      </h1>
+      <p class="text-on-surface-variant font-light text-base md:text-lg">분석된 코드에서 잔재 코드, 중복 로직, 성능 관련 이슈가 탐지되었습니다. 각 항목을 클릭하여 상세 분석과 권장 조치를 확인하십시오.</p>
+    </header>
+
+    <!-- Issue Cards (동적 렌더링) -->
+    <div class="flex flex-col gap-5 max-w-5xl" id="issue-list"></div>
+
+    <!-- Empty state (hidden by default) -->
+    <div id="empty-state" class="hidden max-w-5xl text-center py-24">
+      <span class="material-symbols-outlined text-5xl text-slate-600 mb-4 block">check_circle</span>
+      <p class="text-xl font-headline font-bold text-slate-500">해당 심각도의 이슈가 없습니다</p>
+    </div>
+  </main>
+
+  <!-- Drawer Overlay -->
+  <div id="drawer-overlay" class="fixed inset-0 bg-black/40 backdrop-blur-sm z-[55] hidden-overlay" onclick="closeDrawer()"></div>
+
+  <!-- Detail Drawer -->
+  <div id="detail-drawer" class="fixed inset-y-0 right-0 w-full md:w-[480px] z-[60] glass-panel border-l border-white/10 shadow-[-20px_0_60px_-15px_rgba(0,0,0,0.5)] flex flex-col closed">
+
+    <!-- Drawer Header -->
+    <div class="p-6 md:p-8 border-b border-white/5 flex items-center justify-between">
+      <div>
+        <span class="font-label text-[10px] tracking-[0.3em] text-primary uppercase" id="drawer-category">Issue Analysis</span>
+        <h2 class="text-xl md:text-2xl font-headline font-bold mt-1 ko-emphasis" id="drawer-title">상세 분석</h2>
+      </div>
+      <button onclick="closeDrawer()" class="w-10 h-10 rounded-full flex items-center justify-center hover:bg-white/5 transition-colors text-slate-400 hover:text-white">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+    </div>
+
+    <!-- Drawer Body -->
+    <div class="flex-1 overflow-y-auto p-6 md:p-8 space-y-8" id="drawer-content">
+
+      <!-- Severity Badge -->
+      <div class="flex items-center gap-3">
+        <span id="drawer-badge" class="px-3 py-1 rounded-full text-[10px] font-bold ko-emphasis">치명적</span>
+        <span class="font-label text-[10px] tracking-[0.2em] text-on-surface-variant uppercase bg-white/5 px-2 py-1 rounded" id="drawer-tag">잔재 코드</span>
+      </div>
+
+      <!-- 이 코드가 하는 일 -->
+      <section>
+        <h3 class="font-label text-[11px] tracking-widest text-slate-500 uppercase mb-4 ko-emphasis">이 코드가 하는 일</h3>
+        <p class="text-on-surface/90 leading-relaxed font-light text-sm md:text-base" id="drawer-what"></p>
+      </section>
+
+      <!-- 문제 정의 -->
+      <section>
+        <h3 class="font-label text-[11px] tracking-widest text-slate-500 uppercase mb-4 ko-emphasis">지금도 필요한가요?</h3>
+        <div class="space-y-3" id="drawer-needed"></div>
+      </section>
+
+      <!-- 권장 조치 -->
+      <section>
+        <h3 class="font-label text-[11px] tracking-widest text-slate-500 uppercase mb-4 ko-emphasis">AI 권장 조치</h3>
+        <div class="bg-surface-container-high rounded-2xl p-5 border border-primary/10" id="drawer-action-box">
+          <p class="text-sm text-on-surface/80 font-medium mb-4" id="drawer-action-desc"></p>
+          <div class="bg-surface-container-lowest rounded-xl p-3 font-mono text-xs text-slate-400" id="drawer-action-code"></div>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- Drawer Footer Actions -->
+    <div class="p-6 md:p-8 bg-surface-container-low/50 backdrop-blur-md border-t border-white/5 space-y-3">
+      <button id="drawer-apply-btn" onclick="applyFix()" class="w-full bg-primary text-on-primary-container py-4 rounded-full font-medium hover:brightness-110 active:scale-[0.98] transition-all flex items-center justify-center gap-2 ko-emphasis">
+        <span class="material-symbols-outlined text-lg">auto_fix_high</span>
+        <span id="drawer-apply-label">자동 수정 적용</span>
+      </button>
+      <div class="grid grid-cols-2 gap-3">
+        <button class="bg-surface-container-high text-on-surface py-3 rounded-full font-label uppercase tracking-widest text-[10px] hover:bg-surface-variant transition-all flex items-center justify-center gap-2 ko-emphasis">
+          <span class="material-symbols-outlined text-base">bookmark</span>
+          나중에 보기
+        </button>
+        <button id="drawer-dismiss-btn" onclick="dismissIssue()" class="border border-white/10 text-slate-400 py-3 rounded-full font-label uppercase tracking-widest text-[10px] hover:text-white hover:border-white/20 transition-all ko-emphasis">
+          무시하기
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ===== 심각도별 스타일 맵 =====
+    const SEVERITY = {
+      critical: {
+        border:     'border-error',
+        badge:      'bg-error-container text-on-error-container',
+        label:      '치명적',
+        dot:        'bg-error',
+        bgIcon:     'priority_high',
+        filterIcon: 'priority_high',
+      },
+      warning: {
+        border:     'border-amber-500',
+        badge:      'bg-amber-500/20 text-amber-300',
+        label:      '주의',
+        dot:        'bg-amber-400',
+        bgIcon:     'warning',
+        filterIcon: 'warning',
+      },
+      info: {
+        border:     'border-emerald-500',
+        badge:      'bg-emerald-500/20 text-emerald-300',
+        label:      '참고',
+        dot:        'bg-emerald-400',
+        bgIcon:     'info',
+        filterIcon: 'check_circle',
+      },
+    };
+
+    // ===== 데이터 로드 =====
+    let issues = [];
+    const stored = sessionStorage.getItem('vr_issues');
+
+    if (!stored) {
+      // sessionStorage가 없으면 홈으로
+      window.location.href = 'index.html';
+    } else {
+      issues = JSON.parse(stored);
+    }
+
+    let currentIssueIdx = null;
+    let dismissedIssues = new Set();
+
+    // ===== 언어 표시 =====
+    const lang = sessionStorage.getItem('vr_lang') || '';
+    if (lang && lang !== 'Auto-detect') {
+      document.getElementById('analyzed-lang').textContent = lang;
+    }
+
+    // ===== 헤드라인 & 사이드바 카운트 업데이트 =====
+    function updateCounts() {
+      const total   = issues.length;
+      const crit    = issues.filter(i => i.severity === 'critical').length;
+      const warn    = issues.filter(i => i.severity === 'warning').length;
+      const info    = issues.filter(i => i.severity === 'info').length;
+
+      document.getElementById('issue-count-headline').textContent =
+        total === 0 ? '이슈 없음' : `${total}개의 개선 사항`;
+      document.getElementById('summary-critical').textContent = crit;
+      document.getElementById('summary-warning').textContent  = warn;
+      document.getElementById('summary-info').textContent     = info;
+    }
+
+    // ===== 카드 렌더링 =====
+    function renderIssueCards(list) {
+      const container = document.getElementById('issue-list');
+      container.innerHTML = '';
+
+      if (list.length === 0) {
+        document.getElementById('empty-state').classList.remove('hidden');
+        return;
+      }
+      document.getElementById('empty-state').classList.add('hidden');
+
+      list.forEach((issue, idx) => {
+        const s = SEVERITY[issue.severity] || SEVERITY.info;
+        // codeSnippet을 안전하게 텍스트로 이스케이프
+        const snippet = (issue.codeSnippet || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+        const isCritical = issue.severity === 'critical';
+
+        const card = document.createElement('div');
+        card.className = `issue-card ${issue.severity} group relative glass-panel rounded-2xl p-6 md:p-8 hover:bg-surface-container-high transition-all duration-500 cursor-pointer border-l-4 ${s.border} overflow-hidden`;
+        card.dataset.severity = issue.severity;
+        card.dataset.issue = idx;
+        card.onclick = () => openDrawer(idx);
+        card.style.animationDelay = `${idx * 0.08}s`;
+
+        card.innerHTML = `
+          ${isCritical ? `<div class="absolute top-0 right-0 p-8 opacity-10 group-hover:opacity-20 transition-opacity pointer-events-none">
+            <span class="material-symbols-outlined text-8xl">${s.bgIcon}</span>
+          </div>` : ''}
+          <div class="flex flex-wrap items-center gap-3 mb-4">
+            <span class="font-label text-[10px] tracking-[0.2em] text-on-surface-variant uppercase bg-white/5 px-2 py-1 rounded">${issue.tag || ''}</span>
+            <span class="px-3 py-1 rounded-full ${s.badge} text-[10px] font-bold ko-emphasis">${s.label}</span>
+          </div>
+          <h2 class="text-xl md:text-2xl font-headline font-bold mb-4 ko-emphasis">${issue.title || ''}</h2>
+          <div class="bg-surface-container-lowest/50 rounded-xl p-4 font-mono text-sm text-slate-400 overflow-x-auto code-snippet border border-white/5 whitespace-pre-wrap">${snippet}</div>
+          <div class="mt-6 flex items-center text-primary text-xs font-label tracking-widest uppercase gap-2 group-hover:gap-4 transition-all ko-emphasis">
+            상세 분석 보기 <span class="material-symbols-outlined text-sm">arrow_forward</span>
+          </div>`;
+
+        container.appendChild(card);
+      });
+    }
+
+    // ===== 필터 =====
+    function filterIssues(severity) {
+      const cards = document.querySelectorAll('.issue-card');
+      let visible = 0;
+      cards.forEach(card => {
+        const match = severity === 'all' || card.dataset.severity === severity;
+        card.style.display = match ? '' : 'none';
+        if (match) visible++;
+      });
+      document.getElementById('empty-state').classList.toggle('hidden', visible > 0);
+
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        const active = btn.dataset.filter === severity;
+        btn.classList.toggle('bg-primary/10', active);
+        btn.classList.toggle('text-primary', active);
+        btn.classList.toggle('text-slate-500', !active);
+      });
+    }
+
+    // ===== 드로어 열기 =====
+    function openDrawer(idx) {
+      currentIssueIdx = idx;
+      const issue = issues[idx];
+      const s = SEVERITY[issue.severity] || SEVERITY.info;
+
+      document.getElementById('drawer-category').textContent  = issue.category || '';
+      document.getElementById('drawer-title').textContent     = issue.title || '';
+      document.getElementById('drawer-badge').className       = `px-3 py-1 rounded-full text-[10px] font-bold ko-emphasis ${s.badge}`;
+      document.getElementById('drawer-badge').textContent     = s.label;
+      document.getElementById('drawer-tag').textContent       = issue.tag || '';
+      document.getElementById('drawer-what').textContent      = issue.what || '';
+      document.getElementById('drawer-action-desc').textContent = issue.actionDesc || '';
+      document.getElementById('drawer-action-code').textContent = issue.actionCode || '';
+      document.getElementById('drawer-apply-label').textContent = issue.applyLabel || '수정 적용';
+
+      // needed 배열: 문자열 배열 또는 {dot,text} 배열 모두 지원
+      const neededEl = document.getElementById('drawer-needed');
+      neededEl.innerHTML = '';
+      (issue.needed || []).forEach(item => {
+        const text = typeof item === 'string' ? item : item.text;
+        neededEl.innerHTML += `
+          <div class="flex gap-4 items-start">
+            <div class="w-1.5 h-1.5 rounded-full ${s.dot} mt-2 shrink-0"></div>
+            <p class="text-sm text-on-surface-variant leading-relaxed">${text}</p>
+          </div>`;
+      });
+
+      const alreadyDismissed = dismissedIssues.has(idx);
+      const applyBtn = document.getElementById('drawer-apply-btn');
+      applyBtn.disabled = alreadyDismissed;
+      applyBtn.style.opacity = alreadyDismissed ? '0.4' : '';
+      applyBtn.style.background = '';
+      document.getElementById('drawer-apply-label').textContent = issue.applyLabel || '수정 적용';
+      document.getElementById('drawer-dismiss-btn').textContent = alreadyDismissed ? '복원하기' : '무시하기';
+      document.getElementById('drawer-dismiss-btn').onclick     = alreadyDismissed ? restoreIssue : dismissIssue;
+
+      document.getElementById('detail-drawer').classList.replace('closed', 'open');
+      document.getElementById('drawer-overlay').classList.replace('hidden-overlay', 'visible-overlay');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeDrawer() {
+      document.getElementById('detail-drawer').classList.replace('open', 'closed');
+      document.getElementById('drawer-overlay').classList.replace('visible-overlay', 'hidden-overlay');
+      document.body.style.overflow = '';
+    }
+
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDrawer(); });
+
+    // ===== 수정 적용 =====
+    function applyFix() {
+      if (currentIssueIdx === null) return;
+      const applyBtn = document.getElementById('drawer-apply-btn');
+      document.getElementById('drawer-apply-label').textContent = '적용 완료 ✓';
+      applyBtn.style.background = '#059669';
+      setTimeout(() => { dismissIssue(); }, 900);
+    }
+
+    // ===== 무시 / 복원 =====
+    function dismissIssue() {
+      if (currentIssueIdx === null) return;
+      dismissedIssues.add(currentIssueIdx);
+      document.querySelector(`[data-issue="${currentIssueIdx}"]`)?.classList.add('dismissed');
+      closeDrawer();
+    }
+
+    function restoreIssue() {
+      if (currentIssueIdx === null) return;
+      dismissedIssues.delete(currentIssueIdx);
+      document.querySelector(`[data-issue="${currentIssueIdx}"]`)?.classList.remove('dismissed');
+      document.getElementById('drawer-dismiss-btn').textContent = '무시하기';
+      document.getElementById('drawer-dismiss-btn').onclick = dismissIssue;
+      document.getElementById('drawer-apply-btn').disabled = false;
+      document.getElementById('drawer-apply-btn').style.opacity = '';
+    }
+
+    // ===== localStorage 저장 =====
+    // sessionStorage에서 막 넘어온 신규 분석 결과만 저장 (history 페이지에서 재열람하는 경우 제외)
+    const isNewResult = sessionStorage.getItem('vr_new_result') === '1';
+    if (isNewResult && issues.length >= 0) {
+      sessionStorage.removeItem('vr_new_result'); // 재방문 시 중복 저장 방지
+      const STORAGE_KEY = 'vr_history';
+      const MAX_HISTORY = 50;
+      const lang = sessionStorage.getItem('vr_lang') || '';
+      const label = lang && lang !== 'Auto-detect' ? lang : '직접 입력한 코드';
+      const counts = {
+        critical: issues.filter(i => i.severity === 'critical').length,
+        warning:  issues.filter(i => i.severity === 'warning').length,
+        info:     issues.filter(i => i.severity === 'info').length,
+      };
+      const entry = {
+        id:        `vr-${Date.now()}`,
+        label,
+        lang,
+        timestamp: Date.now(),
+        counts,
+        issues,
+      };
+      try {
+        let history = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+        history.push(entry);
+        if (history.length > MAX_HISTORY) history = history.slice(-MAX_HISTORY);
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(history));
+      } catch { /* 저장 실패는 무시 */ }
+    }
+
+    // ===== 초기 렌더링 =====
+    updateCounts();
+    renderIssueCards(issues);
+  </script>
+</body>
+</html>

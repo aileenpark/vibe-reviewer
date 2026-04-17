@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="ko"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&amp;family=Manrope:wght@300;400;500;600;700&amp;family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-highest": "#25252d",
+                        "on-primary": "#00515b",
+                        "error-dim": "#d7383b",
+                        "on-secondary-fixed": "#431585",
+                        "secondary-fixed": "#ddc8ff",
+                        "on-tertiary-fixed-variant": "#203184",
+                        "tertiary-dim": "#8998f0",
+                        "tertiary": "#a8b4ff",
+                        "surface-container-low": "#131319",
+                        "primary-dim": "#45d8ed",
+                        "on-secondary": "#330070",
+                        "tertiary-container": "#96a5ff",
+                        "surface": "#0e0e13",
+                        "surface-tint": "#58e7fb",
+                        "on-primary-fixed-variant": "#005b66",
+                        "surface-container": "#19191f",
+                        "surface-bright": "#2c2b33",
+                        "on-primary-container": "#00363d",
+                        "primary-fixed": "#58e7fb",
+                        "primary": "#58e7fb",
+                        "tertiary-fixed-dim": "#8e9df6",
+                        "on-secondary-fixed-variant": "#6139a3",
+                        "inverse-on-surface": "#55545b",
+                        "on-error-container": "#ffa8a3",
+                        "on-primary-fixed": "#003c44",
+                        "on-tertiary-fixed": "#000d52",
+                        "outline-variant": "#48474d",
+                        "secondary-dim": "#b189f8",
+                        "surface-container-lowest": "#000000",
+                        "primary-container": "#1cc2d6",
+                        "on-surface": "#f9f5fd",
+                        "inverse-surface": "#fcf8ff",
+                        "error": "#ff716c",
+                        "error-container": "#9f0519",
+                        "on-tertiary-container": "#0f2176",
+                        "on-background": "#f9f5fd",
+                        "surface-container-high": "#1f1f26",
+                        "tertiary-fixed": "#9eabff",
+                        "on-tertiary": "#1d2e81",
+                        "primary-fixed-dim": "#45d8ed",
+                        "inverse-primary": "#006975",
+                        "surface-dim": "#0e0e13",
+                        "surface-variant": "#25252d",
+                        "outline": "#76747b",
+                        "on-error": "#490006",
+                        "on-secondary-container": "#dcc7ff",
+                        "secondary-fixed-dim": "#d2b7ff",
+                        "background": "#0e0e13",
+                        "on-surface-variant": "#acaab1",
+                        "secondary": "#b78efe",
+                        "secondary-container": "#572e99"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Pretendard", "sans-serif"],
+                        "brand": ["Newsreader", "serif"],
+                        "body": ["Pretendard", "sans-serif"],
+                        "label": ["Space Grotesk", "sans-serif"],
+                        "guide-headline": ["Newsreader"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            background-color: #0e0e13;
+            color: #f9f5fd;
+            font-family: 'Pretendard', sans-serif;
+            overflow-x: hidden;
+        }
+        .glow-bg {
+            background: radial-gradient(circle at 50% 50%, rgba(88, 231, 251, 0.05) 0%, transparent 70%);
+        }
+        .glass-panel {
+            backdrop-filter: blur(12px);
+            background: rgba(25, 25, 31, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .font-emphasis {
+            font-family: 'Pretendard', sans-serif;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+        }
+        .font-emphasis-bold {
+            font-family: 'Pretendard', sans-serif;
+            font-weight: 700;
+            letter-spacing: 0.07em;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+<!-- TopNavBar (Updated to match SCREEN_2 style) -->
+<header class="fixed top-0 w-full z-50 bg-[#0e0e13]/80 backdrop-blur-2xl border-b border-white/5 shadow-[0_8px_32px_0_rgba(0,0,0,0.3)]">
+<div class="flex items-center justify-between px-12 h-20 w-full">
+<div class="flex items-center gap-12">
+<a class="text-2xl font-light italic text-[#58e7fb] font-brand tracking-tight" href="#">Vibe Review</a>
+<nav class="hidden md:flex items-center gap-8">
+<a class="text-slate-400 font-emphasis hover:text-[#b78efe] hover:scale-105 transition-all duration-300" href="#">코드 분석</a>
+<a class="text-slate-400 font-emphasis hover:text-[#b78efe] hover:scale-105 transition-all duration-300" href="#">리뷰 기록</a>
+<a class="text-[#58e7fb] font-emphasis-bold after:content-[''] after:block after:h-px after:bg-[#58e7fb] after:w-full hover:text-[#b78efe] hover:scale-105 transition-all duration-300" href="#">가이드</a>
+</nav>
+</div>
+<div class="flex items-center gap-6">
+<button class="bg-[#58e7fb] text-[#00363d] px-6 py-2.5 rounded-full font-emphasis-bold active:scale-95 transition-all duration-200">시작하기 →</button>
+</div>
+</div>
+</header>
+<main class="flex-grow pt-32 pb-20 px-6 max-w-7xl mx-auto w-full relative">
+<!-- Atmospheric Glow Background -->
+<div class="fixed top-[-10%] right-[-10%] w-[600px] h-[600px] bg-secondary/10 blur-[120px] rounded-full -z-10"></div>
+<div class="fixed bottom-[-10%] left-[-10%] w-[600px] h-[600px] bg-primary/5 blur-[120px] rounded-full -z-10"></div>
+<!-- Page Header -->
+<header class="mb-20 text-center">
+<p class="font-label text-tertiary uppercase tracking-[0.3em] mb-4 text-[11px]">Knowledge Base</p>
+<h1 class="font-guide-headline italic text-5xl md:text-7xl font-light text-on-surface tracking-tight mb-6">Service Guide</h1>
+<p class="text-on-surface-variant max-w-2xl mx-auto leading-relaxed">심야의 캔버스 위에서 펼쳐지는 정교한 코드 리뷰 시스템, <br/>Vibe Review의 효율적인 활용을 위한 지침서입니다.</p>
+</header>
+<!-- Bento Grid Sections -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+<!-- 1. 코드 분석 방법 -->
+<section class="md:col-span-8 glass-panel rounded-lg p-10 relative overflow-hidden group">
+<div class="absolute top-0 right-0 p-8 opacity-10 pointer-events-none group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-[120px]" data-weight="fill">analytics</span>
+</div>
+<header class="mb-12">
+<h2 class="font-label text-primary uppercase tracking-[0.2em] text-xs mb-3">01. Workflow</h2>
+<h3 class="font-guide-headline text-3xl italic text-on-surface">코드 분석 방법</h3>
+</header>
+<div class="grid md:grid-cols-2 gap-10">
+<div class="space-y-6">
+<div class="flex gap-4">
+<span class="font-label text-primary-dim opacity-50 text-xl">01</span>
+<div>
+<h4 class="text-on-surface font-semibold mb-1">레포지토리 연동</h4>
+<p class="text-sm text-on-surface-variant leading-relaxed">GitHub 또는 GitLab 계정을 연동하여 리뷰 대상을 선정합니다.</p>
+</div>
+</div>
+<div class="flex gap-4">
+<span class="font-label text-primary-dim opacity-50 text-xl">02</span>
+<div>
+<h4 class="text-on-surface font-semibold mb-1">스캔 범위 설정</h4>
+<p class="text-sm text-on-surface-variant leading-relaxed">특정 브랜치 혹은 최근 커밋 단위로 분석 범위를 지정할 수 있습니다.</p>
+</div>
+</div>
+</div>
+<div class="bg-surface-container-highest/40 rounded-xl p-6 border border-white/5">
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-primary text-sm">info</span>
+<span class="text-[10px] font-label text-on-surface-variant tracking-wider uppercase">Pro Tip</span>
+</div>
+<p class="text-xs leading-relaxed text-on-surface-variant">
+                            대규모 PR의 경우, <span class="text-primary-dim">컴포넌트 단위 스캔</span>을 활용하면 보다 정밀하고 깊이 있는 아키텍처 피드백을 받을 수 있습니다.
+                        </p>
+</div>
+</div>
+</section>
+<!-- Card: AI Confidence -->
+<div class="md:col-span-4 bg-surface-container rounded-lg p-8 flex flex-col justify-between border border-white/5">
+<span class="material-symbols-outlined text-tertiary-fixed text-4xl">neurology</span>
+<div>
+<h4 class="font-guide-headline text-xl italic text-on-surface mb-2">분석 신뢰도</h4>
+<p class="text-xs text-on-surface-variant leading-relaxed mb-6">Vibe Review의 엔진은 98.2%의 확률로 구문 오류 및 논리적 결함을 사전에 탐지합니다.</p>
+<div class="h-1 w-full bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-tertiary w-[98%] shadow-[0_0_10px_rgba(168,180,255,0.4)]"></div>
+</div>
+</div>
+</div>
+<!-- 2. 결과 해석 및 심각도 -->
+<section class="md:col-span-12 glass-panel rounded-lg p-10">
+<header class="mb-12 flex justify-between items-end">
+<div>
+<h2 class="font-label text-secondary uppercase tracking-[0.2em] text-xs mb-3">02. Diagnostics</h2>
+<h3 class="font-guide-headline text-3xl italic text-on-surface">결과 해석 및 심각도</h3>
+</div>
+<div class="hidden md:block">
+<p class="text-xs text-on-surface-variant text-right">분석 결과는 세 가지 수준의 <br/>심각도로 분류되어 제공됩니다.</p>
+</div>
+</header>
+<div class="grid md:grid-cols-3 gap-8">
+<!-- Critical -->
+<div class="bg-surface-container-low p-8 rounded-xl border-l-2 border-error">
+<div class="flex items-center gap-3 mb-6">
+<span class="px-3 py-1 rounded-full text-[10px] bg-error-container/20 text-error font-semibold">치명적</span>
+</div>
+<h4 class="text-on-surface font-semibold mb-2">High Severity</h4>
+<p class="text-sm text-on-surface-variant leading-relaxed">보안 취약점, 메모리 누수 등 시스템 안정성에 직접적인 위협을 주는 결함입니다. 즉각적인 수정이 권장됩니다.</p>
+</div>
+<!-- Warning -->
+<div class="bg-surface-container-low p-8 rounded-xl border-l-2 border-amber-500/50">
+<div class="flex items-center gap-3 mb-6">
+<span class="px-3 py-1 rounded-full text-[10px] bg-amber-500/10 text-amber-500 font-semibold">주의</span>
+</div>
+<h4 class="text-on-surface font-semibold mb-2">Medium Severity</h4>
+<p class="text-sm text-on-surface-variant leading-relaxed">성능 저하 우려나 유지보수성을 해치는 안티 패턴이 발견된 상태입니다. 가급적 수정하는 것이 좋습니다.</p>
+</div>
+<!-- Normal -->
+<div class="bg-surface-container-low p-8 rounded-xl border-l-2 border-emerald-500/50">
+<div class="flex items-center gap-3 mb-6">
+<span class="px-3 py-1 rounded-full text-[10px] bg-emerald-500/10 text-emerald-500 font-semibold">정상</span>
+</div>
+<h4 class="text-on-surface font-semibold mb-2">Low Severity</h4>
+<p class="text-sm text-on-surface-variant leading-relaxed">컨벤션 미준수나 더 우아한 코드로의 리팩토링 제안입니다. 개발자의 판단에 따라 선택적으로 적용합니다.</p>
+</div>
+</div>
+</section>
+<!-- 3. AI 자동 수정 적용 -->
+<section class="md:col-span-7 glass-panel rounded-lg p-10 relative overflow-hidden group">
+<div class="absolute inset-0 bg-gradient-to-br from-secondary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+<header class="mb-12">
+<h2 class="font-label text-tertiary-fixed uppercase tracking-[0.2em] text-xs mb-3">03. Automation</h2>
+<h3 class="font-guide-headline text-3xl italic text-on-surface">AI 자동 수정 적용</h3>
+</header>
+<div class="space-y-8 relative z-10">
+<p class="text-on-surface-variant leading-relaxed">복잡한 수정 과정을 단 한 번의 클릭으로 해결하십시오. Vibe Review의 AI는 문맥을 이해하고 최적의 솔루션을 제안합니다.</p>
+<ul class="space-y-4">
+<li class="flex items-center gap-3 text-sm text-on-surface">
+<span class="material-symbols-outlined text-primary text-lg">auto_fix_high</span>
+<span>원클릭 리팩토링 적용</span>
+</li>
+<li class="flex items-center gap-3 text-sm text-on-surface">
+<span class="material-symbols-outlined text-primary text-lg">history</span>
+<span>수정 전후 Diff 비교 지원</span>
+</li>
+<li class="flex items-center gap-3 text-sm text-on-surface">
+<span class="material-symbols-outlined text-primary text-lg">commit</span>
+<span>GitHub Direct Commit 연동</span>
+</li>
+</ul>
+</div>
+</section>
+<!-- Visual Support: Code Preview -->
+<div class="md:col-span-5 bg-surface-container-lowest rounded-lg border border-white/5 p-6 font-mono text-[11px] overflow-hidden">
+<div class="flex gap-2 mb-4">
+<div class="w-2.5 h-2.5 rounded-full bg-error-dim/40"></div>
+<div class="w-2.5 h-2.5 rounded-full bg-amber-500/40"></div>
+<div class="w-2.5 h-2.5 rounded-full bg-emerald-500/40"></div>
+</div>
+<div class="space-y-1 opacity-70">
+<div class="text-on-surface-variant">// Vibe Review AI Suggestion</div>
+<div class="text-secondary">- <span class="bg-error-container/30">for (let i=0; i &lt; arr.length; i++) {</span></div>
+<div class="text-primary">+ <span class="bg-primary-container/20">arr.forEach(item =&gt; {</span></div>
+<div class="text-on-surface-variant ml-4">process(item);</div>
+<div class="text-primary">+ });</div>
+</div>
+<div class="mt-8 flex justify-center">
+<button class="bg-surface-container-high border border-primary/20 text-primary px-4 py-2 rounded-full text-[10px] font-label tracking-widest hover:bg-primary/10 transition-colors">
+                        APPLY CHANGES
+                    </button>
+</div>
+</div>
+</div>
+<!-- Help Section -->
+<section class="mt-20 py-16 text-center border-t border-white/5">
+<h4 class="font-guide-headline text-3xl italic text-on-surface mb-6">여전히 궁금한 점이 있으신가요?</h4>
+<div class="flex flex-wrap justify-center gap-4">
+<button class="px-8 py-3 rounded-full bg-surface-container-highest text-on-surface text-sm font-medium hover:bg-surface-container-high transition-colors">
+                    자주 묻는 질문 (FAQ)
+                </button>
+<button class="px-8 py-3 rounded-full bg-surface-container-highest text-on-surface text-sm font-medium hover:bg-surface-container-high transition-colors">
+                    기술 지원 문의
+                </button>
+</div>
+</section>
+</main>
+<!-- Footer (Updated to match SCREEN_2 style) -->
+<footer class="w-full py-12 px-12 border-t border-white/5 bg-[#0e0e13]">
+<div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+<div class="flex flex-col gap-2">
+<p class="font-body text-xs font-light text-slate-600">© 2024 Vibe Review. 모든 코드에 가치를 더합니다.</p>
+</div>
+<div class="flex items-center gap-8">
+<a class="font-emphasis text-xs text-slate-600 hover:text-white transition-colors" href="#">시스템 상태</a>
+<a class="font-emphasis text-xs text-slate-600 hover:text-white transition-colors" href="#">릴리즈 노트</a>
+<a class="font-emphasis text-xs text-slate-600 hover:text-white transition-colors" href="#">커뮤니티</a>
+</div>
+</div>
+</footer>
+</body></html>

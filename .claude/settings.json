@@ -1,0 +1,29 @@
+{
+  "permissions": {
+    "deny": [
+      "Read(server/.env)",
+      "Write(server/.env)",
+      "Edit(server/.env)",
+      "Read(.env)",
+      "Write(.env)",
+      "Edit(.env)",
+      "Bash(cat*server/.env*)",
+      "Bash(cat*.env*)",
+      "Bash(echo*GEMINI*)",
+      "Bash(printenv*GEMINI*)"
+    ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Read|Write|Edit|Bash|Glob|Grep|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash /Users/nayunpark/vibe-reviewer/.claude/hooks/block-env-access.sh"
+          }
+        ]
+      }
+    ]
+  }
+}

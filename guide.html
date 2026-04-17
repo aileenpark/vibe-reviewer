@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html class="dark" lang="ko">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Vibe Review — 서비스 가이드</title>
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Manrope:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+  <link as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet"/>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "surface-dim": "#0e0e13", "surface-container-low": "#131319",
+            "surface-container": "#19191f", "surface-container-high": "#1f1f26",
+            "surface-container-highest": "#25252d", "surface-container-lowest": "#09090f",
+            "surface-variant": "#25252d", "surface": "#0e0e13", "background": "#0e0e13",
+            "on-surface": "#f9f5fd", "on-surface-variant": "#acaab1",
+            "outline-variant": "#48474d", "outline": "#76747b",
+            "primary": "#58e7fb", "on-primary": "#00515b",
+            "on-primary-container": "#00363d", "primary-dim": "#45d8ed",
+            "secondary": "#b78efe", "tertiary": "#a8b4ff",
+            "error": "#ff716c", "error-container": "#9f0519", "on-error-container": "#ffa8a3",
+          },
+          borderRadius: { DEFAULT: "1rem", lg: "2rem", xl: "3rem", full: "9999px" },
+          fontFamily: {
+            headline: ["Pretendard", "sans-serif"], body: ["Pretendard", "sans-serif"],
+            label: ["Space Grotesk", "sans-serif"], brand: ["Newsreader", "serif"]
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+    body { background-color: #0e0e13; color: #f9f5fd; font-family: 'Pretendard', sans-serif; overflow-x: hidden; }
+    .glass-panel { backdrop-filter: blur(12px); background: rgba(25,25,31,0.6); border: 1px solid rgba(255,255,255,0.05); }
+    .font-emphasis { font-weight: 600; letter-spacing: 0.05em; }
+    .font-emphasis-bold { font-weight: 700; letter-spacing: 0.07em; }
+
+    /* FAQ accordion */
+    .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; }
+    .faq-item.open .faq-answer { max-height: 200px; }
+    .faq-item.open .faq-icon { transform: rotate(45deg); }
+    .faq-icon { transition: transform 0.25s ease; }
+
+    /* Step number */
+    .step-num { font-family: 'Newsreader', serif; font-style: italic; font-weight: 300; opacity: 0.25; }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+  <!-- Atmospheric glow -->
+  <div class="fixed top-[-10%] right-[-10%] w-[600px] h-[600px] bg-secondary/10 blur-[120px] rounded-full -z-10 pointer-events-none"></div>
+  <div class="fixed bottom-[-10%] left-[-10%] w-[600px] h-[600px] bg-primary/5 blur-[120px] rounded-full -z-10 pointer-events-none"></div>
+
+  <!-- TopAppBar -->
+  <header class="fixed top-0 w-full z-50 bg-[#0e0e13]/80 backdrop-blur-2xl border-b border-white/5 shadow-[0_8px_32px_0_rgba(0,0,0,0.3)]">
+    <div class="flex items-center justify-between px-8 md:px-12 h-20 w-full max-w-7xl mx-auto">
+      <div class="flex items-center gap-10">
+        <a class="text-2xl font-light italic text-primary font-brand tracking-tight" href="index.html">Vibe Review</a>
+        <nav class="hidden md:flex items-center gap-8">
+          <a class="text-slate-400 font-emphasis hover:text-secondary transition-all duration-300" href="index.html">코드 분석</a>
+          <a class="text-slate-400 font-emphasis hover:text-secondary transition-all duration-300" href="history.html">리뷰 기록</a>
+          <a class="text-primary font-emphasis-bold after:content-[''] after:block after:h-px after:bg-primary after:w-full" href="#">가이드</a>
+        </nav>
+      </div>
+      <a href="index.html" class="bg-primary text-on-primary-container px-6 py-2.5 rounded-full font-emphasis-bold active:scale-95 transition-all duration-200 hover:brightness-110 text-sm">
+        시작하기 →
+      </a>
+    </div>
+  </header>
+
+  <main class="flex-grow pt-32 pb-20 px-6 max-w-7xl mx-auto w-full relative">
+
+    <!-- Page Header -->
+    <header class="mb-20 text-center">
+      <p class="font-label text-tertiary uppercase tracking-[0.3em] mb-4 text-[11px]">Knowledge Base</p>
+      <h1 class="font-brand italic text-5xl md:text-7xl font-light text-on-surface tracking-tight mb-6">Service Guide</h1>
+      <p class="text-on-surface-variant max-w-2xl mx-auto leading-relaxed">
+        바이브 코딩 세션의 코드 부채를 AI로 정리하는<br/>Vibe Review 활용 가이드입니다.
+      </p>
+    </header>
+
+    <!-- Bento Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+
+      <!-- 01. 분석 시작하기 (large) -->
+      <section class="md:col-span-8 glass-panel rounded-2xl p-8 md:p-10 relative overflow-hidden group">
+        <div class="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity pointer-events-none">
+          <span class="material-symbols-outlined text-[120px]" style="font-variation-settings:'FILL' 1;">code</span>
+        </div>
+        <header class="mb-10">
+          <h2 class="font-label text-primary uppercase tracking-[0.2em] text-xs mb-3">01. Getting Started</h2>
+          <h3 class="font-headline font-bold text-3xl text-on-surface">분석 시작하기</h3>
+        </header>
+        <div class="grid md:grid-cols-2 gap-8">
+          <div class="space-y-7">
+            <div class="flex gap-4">
+              <span class="step-num text-2xl text-primary shrink-0">01</span>
+              <div>
+                <h4 class="text-on-surface font-semibold mb-1">코드 입력</h4>
+                <p class="text-sm text-on-surface-variant leading-relaxed">에디터에 코드를 붙여넣거나, 파일 업로드 또는 드래그&드롭으로 소스 파일을 불러오세요.</p>
+              </div>
+            </div>
+            <div class="flex gap-4">
+              <span class="step-num text-2xl text-primary shrink-0">02</span>
+              <div>
+                <h4 class="text-on-surface font-semibold mb-1">분석 실행</h4>
+                <p class="text-sm text-on-surface-variant leading-relaxed">"분석 시작하기" 버튼 클릭, 또는 <span class="text-primary font-mono text-xs bg-primary/10 px-1.5 py-0.5 rounded">⌘ Enter</span> 단축키로 즉시 실행합니다.</p>
+              </div>
+            </div>
+            <div class="flex gap-4">
+              <span class="step-num text-2xl text-primary shrink-0">03</span>
+              <div>
+                <h4 class="text-on-surface font-semibold mb-1">결과 확인</h4>
+                <p class="text-sm text-on-surface-variant leading-relaxed">AI가 2~10초 내에 잔재 코드·중복 로직을 탐지하고 정리 방향을 리포트로 제공합니다.</p>
+              </div>
+            </div>
+          </div>
+          <!-- Pro tip box -->
+          <div class="bg-surface-container-highest/40 rounded-xl p-6 border border-white/5 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center gap-2 mb-4">
+                <span class="material-symbols-outlined text-primary text-sm">tips_and_updates</span>
+                <span class="text-[10px] font-label text-on-surface-variant tracking-wider uppercase">Pro Tip</span>
+              </div>
+              <p class="text-xs leading-relaxed text-on-surface-variant mb-4">
+                코드가 길수록 분석 품질이 올라갑니다. 특정 함수만 잘라내는 것보다 <span class="text-primary">파일 전체를 붙여넣는 것</span>이 중복·잔재 코드 탐지에 훨씬 효과적입니다.
+              </p>
+            </div>
+            <div class="border-t border-white/5 pt-4">
+              <p class="text-[10px] font-label text-slate-600 uppercase tracking-wider">지원 언어</p>
+              <p class="text-xs text-slate-400 mt-1">JS · TS · Python · Go · Java · C# · Swift · Kotlin · Rust · PHP · HTML · CSS 외</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 리뷰 기록 저장 방식 (small) -->
+      <div class="md:col-span-4 bg-surface-container rounded-2xl p-8 flex flex-col justify-between border border-white/5">
+        <span class="material-symbols-outlined text-tertiary text-4xl mb-4" style="font-variation-settings:'FILL' 1;">lock</span>
+        <div>
+          <h4 class="font-headline font-bold text-xl text-on-surface mb-3">내 코드는 안전한가요?</h4>
+          <p class="text-xs text-on-surface-variant leading-relaxed mb-5">
+            입력한 코드는 분석 후 서버에 저장되지 않습니다. 분석 결과만 <span class="text-primary">브라우저 로컬 스토리지</span>에 보관되며, 이 기기에서만 열람할 수 있습니다.
+          </p>
+          <ul class="space-y-2">
+            <li class="flex items-center gap-2 text-xs text-slate-400">
+              <span class="material-symbols-outlined text-emerald-400 text-sm">check_circle</span>
+              코드 원문 서버 전송 없음
+            </li>
+            <li class="flex items-center gap-2 text-xs text-slate-400">
+              <span class="material-symbols-outlined text-emerald-400 text-sm">check_circle</span>
+              로그인·회원가입 불필요
+            </li>
+            <li class="flex items-center gap-2 text-xs text-slate-400">
+              <span class="material-symbols-outlined text-emerald-400 text-sm">check_circle</span>
+              최대 50개 기록 자동 보관
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 02. 결과 해석 (full width) -->
+      <section class="md:col-span-12 glass-panel rounded-2xl p-8 md:p-10">
+        <header class="mb-10 flex flex-col md:flex-row justify-between md:items-end gap-4">
+          <div>
+            <h2 class="font-label text-secondary uppercase tracking-[0.2em] text-xs mb-3">02. Diagnostics</h2>
+            <h3 class="font-headline font-bold text-3xl text-on-surface">결과 해석 — 심각도 3단계</h3>
+          </div>
+          <p class="text-xs text-on-surface-variant md:text-right max-w-xs leading-relaxed">각 이슈 카드를 클릭하면 상세 분석 드로어가 열립니다. "이 코드가 하는 일 / 지금도 필요한가요? / AI 권장 조치" 순서로 확인하세요.</p>
+        </header>
+        <div class="grid md:grid-cols-3 gap-6">
+          <!-- Critical -->
+          <div class="bg-surface-container p-7 rounded-xl border border-error/30">
+            <div class="flex items-center gap-3 mb-5">
+              <span class="px-3 py-1 rounded-full text-[10px] bg-error-container/20 text-error font-semibold">치명적</span>
+              <span class="text-[10px] font-label text-slate-500 uppercase tracking-wide">즉시 처리 권장</span>
+            </div>
+            <h4 class="text-on-surface font-semibold mb-2">Critical</h4>
+            <p class="text-sm text-on-surface-variant leading-relaxed">
+              하드코딩된 API 키·비밀번호, 코드베이스 어디서도 호출되지 않는 사용 중단 함수·클래스, 보안 취약점 패턴입니다. 즉시 삭제 또는 수정이 필요합니다.
+            </p>
+            <div class="mt-5 pt-5 border-t border-white/5">
+              <p class="text-[10px] font-label text-slate-500 uppercase tracking-wide mb-2">대표 예시</p>
+              <p class="font-mono text-xs text-error/80">const API_KEY = "sk-abc123"</p>
+              <p class="font-mono text-xs text-slate-500">function legacyAuth() &#123; ... &#125;</p>
+            </div>
+          </div>
+          <!-- Warning -->
+          <div class="bg-surface-container p-7 rounded-xl border border-amber-500/30">
+            <div class="flex items-center gap-3 mb-5">
+              <span class="px-3 py-1 rounded-full text-[10px] bg-amber-500/10 text-amber-400 font-semibold">주의</span>
+              <span class="text-[10px] font-label text-slate-500 uppercase tracking-wide">검토 후 처리</span>
+            </div>
+            <h4 class="text-on-surface font-semibold mb-2">Warning</h4>
+            <p class="text-sm text-on-surface-variant leading-relaxed">
+              다른 파일에 이미 존재하는 중복 로직, 주석 처리된 채 방치된 구버전 코드 블록, 이전 AI 세션 시도의 잔재 코드입니다. 문맥을 확인 후 통합하거나 삭제하세요.
+            </p>
+            <div class="mt-5 pt-5 border-t border-white/5">
+              <p class="text-[10px] font-label text-slate-500 uppercase tracking-wide mb-2">대표 예시</p>
+              <p class="font-mono text-xs text-amber-400/80">function formatData() &#123; /* 중복 */ &#125;</p>
+              <p class="font-mono text-xs text-slate-500">/* TODO: 리팩토링 예정 ... */</p>
+            </div>
+          </div>
+          <!-- Info -->
+          <div class="bg-surface-container p-7 rounded-xl border border-emerald-500/30">
+            <div class="flex items-center gap-3 mb-5">
+              <span class="px-3 py-1 rounded-full text-[10px] bg-emerald-500/10 text-emerald-400 font-semibold">참고</span>
+              <span class="text-[10px] font-label text-slate-500 uppercase tracking-wide">선택적 적용</span>
+            </div>
+            <h4 class="text-on-surface font-semibold mb-2">Info</h4>
+            <p class="text-sm text-on-surface-variant leading-relaxed">
+              성능 저하를 유발하는 패턴, 개선 가능한 의존성 배열, 미사용 import 등입니다. 즉각적인 버그가 아니므로 개발자 판단에 따라 선택적으로 적용합니다.
+            </p>
+            <div class="mt-5 pt-5 border-t border-white/5">
+              <p class="text-[10px] font-label text-slate-500 uppercase tracking-wide mb-2">대표 예시</p>
+              <p class="font-mono text-xs text-emerald-400/80">useEffect(() =&gt; &#123;&#125;, [props])</p>
+              <p class="font-mono text-xs text-slate-500">import &#123; unused &#125; from './utils'</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 03. 드로어 활용법 -->
+      <section class="md:col-span-7 glass-panel rounded-2xl p-8 md:p-10 relative overflow-hidden group">
+        <div class="absolute inset-0 bg-gradient-to-br from-secondary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+        <header class="mb-8">
+          <h2 class="font-label text-tertiary uppercase tracking-[0.2em] text-xs mb-3">03. Detail Panel</h2>
+          <h3 class="font-headline font-bold text-3xl text-on-surface">상세 분석 드로어</h3>
+        </header>
+        <p class="text-on-surface-variant leading-relaxed text-sm mb-8">이슈 카드를 클릭하면 오른쪽에서 드로어가 슬라이드되어 열립니다. 단순한 경고를 넘어 각 코드 블록에 대한 맥락을 이해하고 결정하세요.</p>
+        <ul class="space-y-5 relative z-10">
+          <li class="flex items-start gap-4">
+            <div class="w-8 h-8 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center shrink-0 mt-0.5">
+              <span class="material-symbols-outlined text-primary text-base">search</span>
+            </div>
+            <div>
+              <h5 class="text-on-surface font-semibold text-sm mb-0.5">이 코드가 하는 일</h5>
+              <p class="text-xs text-on-surface-variant leading-relaxed">AI가 해당 코드 블록의 역할을 평문으로 설명합니다. 코드를 읽지 않아도 기능을 파악할 수 있습니다.</p>
+            </div>
+          </li>
+          <li class="flex items-start gap-4">
+            <div class="w-8 h-8 rounded-full bg-secondary/10 border border-secondary/20 flex items-center justify-center shrink-0 mt-0.5">
+              <span class="material-symbols-outlined text-secondary text-base">help</span>
+            </div>
+            <div>
+              <h5 class="text-on-surface font-semibold text-sm mb-0.5">지금도 필요한가요?</h5>
+              <p class="text-xs text-on-surface-variant leading-relaxed">코드베이스 내 호출 여부, 다른 모듈과의 관계 등 실제 필요성 근거를 구체적으로 제시합니다.</p>
+            </div>
+          </li>
+          <li class="flex items-start gap-4">
+            <div class="w-8 h-8 rounded-full bg-tertiary/10 border border-tertiary/20 flex items-center justify-center shrink-0 mt-0.5">
+              <span class="material-symbols-outlined text-tertiary text-base">auto_fix_high</span>
+            </div>
+            <div>
+              <h5 class="text-on-surface font-semibold text-sm mb-0.5">AI 권장 조치</h5>
+              <p class="text-xs text-on-surface-variant leading-relaxed">삭제·유지·통합 중 하나를 코드 예시와 함께 제안합니다. 최종 결정은 항상 사용자에게 있습니다.</p>
+            </div>
+          </li>
+        </ul>
+      </section>
+
+      <!-- 단축키 카드 -->
+      <div class="md:col-span-5 bg-surface-container-lowest rounded-2xl border border-white/5 p-7 flex flex-col justify-between">
+        <div>
+          <h4 class="font-label text-[11px] uppercase tracking-[0.2em] text-on-surface-variant mb-6">⌨️ 단축키</h4>
+          <div class="space-y-4">
+            <div class="flex items-center justify-between">
+              <span class="text-sm text-on-surface-variant">분석 실행</span>
+              <kbd class="px-2.5 py-1 rounded-lg bg-surface-container-high border border-white/10 font-mono text-xs text-primary">⌘ Enter</kbd>
+            </div>
+            <div class="w-full h-px bg-white/5"></div>
+            <div class="flex items-center justify-between">
+              <span class="text-sm text-on-surface-variant">드로어 닫기</span>
+              <kbd class="px-2.5 py-1 rounded-lg bg-surface-container-high border border-white/10 font-mono text-xs text-on-surface-variant">Esc</kbd>
+            </div>
+            <div class="w-full h-px bg-white/5"></div>
+            <div class="flex items-center justify-between">
+              <span class="text-sm text-on-surface-variant">파일 업로드</span>
+              <span class="text-xs text-slate-500">에디터 탭 → 파일 업로드</span>
+            </div>
+            <div class="w-full h-px bg-white/5"></div>
+            <div class="flex items-center justify-between">
+              <span class="text-sm text-on-surface-variant">파일 드롭</span>
+              <span class="text-xs text-slate-500">에디터 영역에 드래그</span>
+            </div>
+          </div>
+        </div>
+        <a href="index.html" class="mt-8 flex items-center justify-center gap-2 py-3 rounded-full border border-primary/30 bg-primary/5 text-primary text-sm font-emphasis hover:bg-primary/10 transition-all">
+          <span class="material-symbols-outlined text-lg">rocket_launch</span>
+          지금 바로 시작하기
+        </a>
+      </div>
+
+      <!-- 04. 리뷰 기록 저장 원리 -->
+      <section class="md:col-span-12 glass-panel rounded-2xl p-8 md:p-10">
+        <header class="mb-8">
+          <h2 class="font-label text-primary uppercase tracking-[0.2em] text-xs mb-3">04. History</h2>
+          <h3 class="font-headline font-bold text-3xl text-on-surface">리뷰 기록 — 로그인 없는 저장</h3>
+        </header>
+        <div class="grid md:grid-cols-3 gap-6">
+          <div class="flex gap-4">
+            <div class="w-10 h-10 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center shrink-0">
+              <span class="material-symbols-outlined text-primary text-base" style="font-variation-settings:'FILL' 1;">storage</span>
+            </div>
+            <div>
+              <h5 class="text-on-surface font-semibold text-sm mb-1">브라우저 로컬 저장소</h5>
+              <p class="text-xs text-on-surface-variant leading-relaxed">분석 완료 시 결과(이슈 목록·카운트)가 브라우저의 localStorage에 자동 저장됩니다. 서버·DB·계정이 필요 없습니다.</p>
+            </div>
+          </div>
+          <div class="flex gap-4">
+            <div class="w-10 h-10 rounded-full bg-secondary/10 border border-secondary/20 flex items-center justify-center shrink-0">
+              <span class="material-symbols-outlined text-secondary text-base" style="font-variation-settings:'FILL' 1;">devices</span>
+            </div>
+            <div>
+              <h5 class="text-on-surface font-semibold text-sm mb-1">이 기기에서만 열람</h5>
+              <p class="text-xs text-on-surface-variant leading-relaxed">저장된 기록은 분석을 실행한 브라우저에서만 볼 수 있습니다. 다른 기기로 공유하려면 결과 화면을 직접 캡처하세요.</p>
+            </div>
+          </div>
+          <div class="flex gap-4">
+            <div class="w-10 h-10 rounded-full bg-tertiary/10 border border-tertiary/20 flex items-center justify-center shrink-0">
+              <span class="material-symbols-outlined text-tertiary text-base" style="font-variation-settings:'FILL' 1;">history</span>
+            </div>
+            <div>
+              <h5 class="text-on-surface font-semibold text-sm mb-1">최대 50개 자동 보관</h5>
+              <p class="text-xs text-on-surface-variant leading-relaxed">오래된 기록부터 자동으로 삭제되어 항상 최근 50개를 유지합니다. 리뷰 기록 페이지에서 개별 삭제도 가능합니다.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div><!-- /bento grid -->
+
+    <!-- FAQ -->
+    <section class="mt-20 max-w-3xl mx-auto">
+      <h4 class="font-headline font-bold text-3xl text-on-surface mb-10 text-center">자주 묻는 질문</h4>
+      <div class="space-y-3" id="faq-list">
+
+        <div class="faq-item glass-panel rounded-2xl overflow-hidden cursor-pointer" onclick="toggleFaq(this)">
+          <div class="flex items-center justify-between p-6">
+            <h5 class="text-on-surface font-semibold text-sm">입력한 코드가 서버에 저장되나요?</h5>
+            <span class="material-symbols-outlined faq-icon text-slate-500 shrink-0">add</span>
+          </div>
+          <div class="faq-answer">
+            <p class="px-6 pb-6 text-sm text-on-surface-variant leading-relaxed">코드 원문은 분석을 위해 Groq API 서버(미국 소재)로 전송되지만, 분석 완료 즉시 폐기됩니다. 로컬 서버에도, Vibe Review 서버에도 코드 원문은 저장되지 않습니다. 분석 결과(이슈 목록)만 여러분의 브라우저에 보관됩니다.</p>
+          </div>
+        </div>
+
+        <div class="faq-item glass-panel rounded-2xl overflow-hidden cursor-pointer" onclick="toggleFaq(this)">
+          <div class="flex items-center justify-between p-6">
+            <h5 class="text-on-surface font-semibold text-sm">어떤 프로그래밍 언어를 지원하나요?</h5>
+            <span class="material-symbols-outlined faq-icon text-slate-500 shrink-0">add</span>
+          </div>
+          <div class="faq-answer">
+            <p class="px-6 pb-6 text-sm text-on-surface-variant leading-relaxed">Groq의 Llama 3.3 모델 기반이므로 대부분의 언어를 이해합니다. JavaScript, TypeScript, Python, Go, Java, C#, Swift, Kotlin, Rust, PHP, HTML, CSS 등에서 잘 동작하며, 특히 JavaScript/TypeScript 계열에서 탐지 품질이 높습니다.</p>
+          </div>
+        </div>
+
+        <div class="faq-item glass-panel rounded-2xl overflow-hidden cursor-pointer" onclick="toggleFaq(this)">
+          <div class="flex items-center justify-between p-6">
+            <h5 class="text-on-surface font-semibold text-sm">분석에 얼마나 걸리나요?</h5>
+            <span class="material-symbols-outlined faq-icon text-slate-500 shrink-0">add</span>
+          </div>
+          <div class="faq-answer">
+            <p class="px-6 pb-6 text-sm text-on-surface-variant leading-relaxed">코드 크기와 서버 상태에 따라 다르지만 평균 3~8초입니다. Groq는 특히 빠른 추론 속도를 제공하여 100줄 내외의 코드는 3초 이내에 결과가 나옵니다. 코드가 길수록 시간이 늘어나지만 40만 자(약 10,000줄) 이하라면 모두 처리 가능합니다.</p>
+          </div>
+        </div>
+
+        <div class="faq-item glass-panel rounded-2xl overflow-hidden cursor-pointer" onclick="toggleFaq(this)">
+          <div class="flex items-center justify-between p-6">
+            <h5 class="text-on-surface font-semibold text-sm">백엔드 서버가 없으면 동작하지 않나요?</h5>
+            <span class="material-symbols-outlined faq-icon text-slate-500 shrink-0">add</span>
+          </div>
+          <div class="faq-answer">
+            <p class="px-6 pb-6 text-sm text-on-surface-variant leading-relaxed">현재는 로컬 Node.js 서버(포트 3001)를 직접 실행해야 합니다. <code class="font-mono text-xs bg-surface-container-high px-1.5 py-0.5 rounded text-primary">cd server && npm run dev</code> 명령으로 서버를 먼저 시작한 뒤 분석을 진행하세요. 서버가 꺼져 있으면 분석 버튼 클릭 시 에러 배너가 표시됩니다.</p>
+          </div>
+        </div>
+
+        <div class="faq-item glass-panel rounded-2xl overflow-hidden cursor-pointer" onclick="toggleFaq(this)">
+          <div class="flex items-center justify-between p-6">
+            <h5 class="text-on-surface font-semibold text-sm">AI가 틀린 분석을 할 수도 있나요?</h5>
+            <span class="material-symbols-outlined faq-icon text-slate-500 shrink-0">add</span>
+          </div>
+          <div class="faq-answer">
+            <p class="px-6 pb-6 text-sm text-on-surface-variant leading-relaxed">네, AI 분석은 완벽하지 않습니다. 특히 여러 파일에 걸친 참조 관계는 붙여넣은 코드만으로는 파악하기 어렵습니다. 드로어의 "무시하기" 버튼으로 오탐을 표시해두고, 최종 삭제 여부는 항상 직접 판단하세요. Vibe Review는 의사결정을 돕는 보조 도구입니다.</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="mt-20 py-16 text-center border-t border-white/5">
+      <h4 class="font-headline font-bold text-3xl text-on-surface mb-3">준비가 됐다면</h4>
+      <p class="text-on-surface-variant text-sm mb-8">코드를 붙여넣는 것만으로 분석이 시작됩니다.</p>
+      <a href="index.html" class="inline-flex items-center gap-3 px-10 py-5 rounded-full border border-primary/40 bg-primary/5 hover:bg-primary/10 hover:border-primary text-primary transition-all duration-300 hover:shadow-[0_0_30px_rgba(88,231,251,0.2)] active:scale-95">
+        <span class="text-lg font-emphasis-bold">분석 시작하기</span>
+        <span class="material-symbols-outlined">arrow_forward</span>
+      </a>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="w-full py-12 px-12 border-t border-white/5 bg-[#0e0e13]">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+      <p class="font-body text-xs font-light text-slate-600">© 2024 Vibe Review. 모든 코드에 가치를 더합니다.</p>
+      <div class="flex items-center gap-8">
+        <a class="font-emphasis text-xs text-slate-600 hover:text-white transition-colors" href="#">시스템 상태</a>
+        <a class="font-emphasis text-xs text-slate-600 hover:text-white transition-colors" href="#">릴리즈 노트</a>
+        <a class="font-emphasis text-xs text-slate-600 hover:text-white transition-colors" href="#">커뮤니티</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function toggleFaq(el) {
+      const isOpen = el.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+      if (!isOpen) el.classList.add('open');
+    }
+  </script>
+</body>
+</html>
