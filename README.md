@@ -4,7 +4,6 @@
 
 **배포 주소 →** https://vibe-reviewer-nine.vercel.app
 
-**데모용 코드** https://drive.google.com/drive/folders/1eNQdmzu6uFOFkU3OnZNW2JENPPFhe7LE?usp=sharing
 
 ---
 
