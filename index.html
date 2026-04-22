@@ -193,29 +193,7 @@
   <!-- Atmospheric Visual Layer -->
   <div class="atmospheric-glow"></div>
 
-  <!-- TopAppBar -->
-  <header
-    class="fixed top-0 w-full z-50 bg-[#0e0e13]/80 backdrop-blur-2xl border-b border-white/5 shadow-[0_8px_32px_0_rgba(0,0,0,0.3)]">
-    <div class="flex items-center justify-between px-4 md:px-12 h-16 md:h-20 w-full max-w-7xl mx-auto">
-      <div class="flex items-center gap-10">
-        <a class="text-2xl font-light italic text-primary font-brand tracking-tight" href="#">Vibe Review</a>
-        <nav class="hidden md:flex items-center gap-8">
-          <a class="text-primary font-emphasis-bold after:content-[''] after:block after:h-px after:bg-primary after:w-full hover:text-secondary transition-all duration-300"
-            href="#">코드 분석</a>
-          <a class="text-slate-400 font-emphasis hover:text-secondary transition-all duration-300"
-            href="history.html">리뷰 기록</a>
-          <a class="text-slate-400 font-emphasis hover:text-secondary transition-all duration-300"
-            href="guide.html">가이드</a>
-        </nav>
-      </div>
-      <div class="flex items-center gap-6">
-        <button id="header-start-btn"
-          class="bg-primary text-on-primary-container px-6 py-2.5 rounded-full font-emphasis-bold active:scale-95 transition-all duration-200 hover:brightness-110">
-          시작하기 →
-        </button>
-      </div>
-    </div>
-  </header>
+  <script src="header.js"></script>
 
   <!-- Main -->
   <main class="relative pt-28 md:pt-32 pb-24 px-4 md:px-12 flex flex-col items-center min-h-screen w-full max-w-7xl mx-auto overflow-x-hidden">
@@ -601,7 +579,6 @@
     }
 
     analyzeBtn.addEventListener('click', startAnalysis);
-    headerStartBtn.addEventListener('click', startAnalysis);
 
     // Keyboard shortcut: Cmd/Ctrl + Enter
     document.addEventListener('keydown', e => {
